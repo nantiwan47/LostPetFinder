@@ -1,0 +1,26 @@
+<header class="bg-white py-4 shadow-lg fixed top-0 left-0 w-full z-10 border-b border-gray-200">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- ส่วนของโลโก้และเมนูหลัก -->
+        <div class="ml-10 flex items-center space-x-8">
+            <a href="{% url 'home' %}">
+                {% load static %}
+                <img src="{% static 'images/logo2.svg' %}" alt="PetAdopt Logo" class="h-10 w-auto">
+            </a>
+            <nav class="flex gap-8">
+                <a href="{% url 'home' %}" class="font-medium hover:text-orange-500 text-lg transition duration-300 {% if request.path == pet_adoption_url %} text-orange-500 {% else %} text-gray-800 {% endif %}">
+                    ประกาศสัตว์เลี้ยงหาย
+                </a>
+                
+                <a href="{% url 'find_list' %}" class="font-medium hover:text-orange-500 text-lg transition duration-300 {% if request.path == pet_adoption_url %} text-orange-500 {% else %} text-gray-800 {% endif %}">
+                    ประกาศตามหาเจ้าของ
+                </a>
+            </nav>
+        </div>
+
+        <!-- ส่วนของผู้ใช้ -->
+        <div class="mr-10 flex items-center gap-8">
+            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-600 transition duration-200">เข้าสู่ระบบ</a>
+            <a href="#" class="bg-orange-400 text-white py-2 px-4 rounded-full shadow-md hover:bg-orange-500 transition duration-200">สมัครสมาชิก</a>
+        </div>
+    </div>
+</header>

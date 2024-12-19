@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- กล่องเนื้อหาหลักของหน้ารายการประกาศ -->
+<div class="flex justify-center"> 
+    <div class="bg-gray-100 p-8 rounded-lg w-4/5 shadow-lg"> 
+        <!-- หัวข้อหลักของหน้าประกาศ -->
+        <h1 class="text-4xl font-bold mb-12 text-center text-gray-700 border-b-4 border-orange-300 pb-4">
+            ประกาศสัตว์เลี้ยงหาย
+        </h1> 
+        
+        <!-- กริดสำหรับแสดงรายการประกาศ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+            {% for pet in announcements %}
+                <!-- กล่องแต่ละประกาศสัตว์เลี้ยง -->
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
+                    <!-- รูปภาพของสัตว์เลี้ยง -->
+                    <img src="{{ pet.image }}" alt="{{ pet.name }}" class="w-full h-48 object-cover border-b-4 border-orange-200">
+
+                    <!-- เนื้อหาภายในกล่อง -->
+                    <div class="p-4">
+                        <strong class="text-2xl font-semibold text-center block mb-4 text-gray-700 border-b-2 border-orange-300 pb-2 text-orange-600">
+                            {{ pet.name }}
+                        </strong>
+
+                        <div class="mb-4">
+                            <p class="text-gray-600"><strong>ประเภท:</strong> {{ pet.get_pet_type_display }}</p>
+                            <p class="text-gray-600"><strong>สายพันธุ์:</strong> {{ pet.breed }}</p>
+                            <p class="text-gray-600"><strong>สี:</strong> {{ pet.color }}</p>
+                            <p class="text-gray-600"><strong>เพศ:</strong> {{ pet.get_gender_display }}</p>
+                            <p class="text-gray-600"><strong>อายุ:</strong> {{ pet.age }} เดือน</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-gray-600"><strong>รายละเอียดเพิ่มเติม:</strong> {{ pet.description }}</p>
+                            <p class="text-gray-600"><strong>ตำแหน่ง:</strong>{{ pet.location }}</p>
+                            <p class="text-gray-600"><strong>จังหวัด:</strong>{{ pet.province }}</p>
+                            <p class="text-gray-600"><strong>วันที่หาย:</strong>{{ pet.lost_date|date:"d/m/Y" }}</p>
+                        </div>
+
+                        <hr class="my-4">
+                        
+                        <!-- ข้อมูลผู้ประกาศ -->
+                        <div class="mb-4">
+                            <p class="text-gray-600"><strong>ชื่อผู้ประกาศ:</strong> {{ pet.announcer.first_name }} {{ pet.announcer.last_name }}</p>
+                            <p class="text-gray-600"><strong>เบอร์ติดต่อ:</strong> {{ pet.announcer.phone_number }}</p>
+                        </div>
+
+                        <!-- วันที่ประกาศ -->
+                        <div class="text-right">
+                            <p class="text-gray-500 text-xs"><strong>วันที่ประกาศ:</strong> {{ pet.created_at|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <!-- ข้อความแสดงเมื่อไม่มีประกาศ -->
+                <div class="col-span-full">
+                    <p class="text-center text-lg text-red-600">ไม่มีประกาศสัตว์หายในขณะนี้</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
